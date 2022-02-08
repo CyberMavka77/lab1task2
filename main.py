@@ -82,14 +82,19 @@ def create_map(dist_lst, my_coords):
     film_map.save('Films.html')
     print("The map is created!")
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=str, help="year of film")
+    parser.add_argument("lat", type=float, help="latitude")
+    parser.add_argument("lon", type=float, help="longitude")
+    parser.add_argument("path", type=str, help="path to file")
 
+    args = parser.parse_args()
+    year = args.year
+    my_coords = (args.lat, args.lon)
+    file_path = args.path
 
-                
-
-
-
-curr_lst = read_file('locator1.list', '2014')[0:5]
-test_dict = get_coords_of_films(curr_lst)
-my_coords = (37.9735346, -122.5310874)
-dist_lst = get_distance_dict(test_dict, my_coords)
-create_map(dist_lst, my_coords)
+    curr_lst = read_file(file_path, '2014')[0:5]
+    test_dict = get_coords_of_films(curr_lst)
+    dist_lst = get_distance_dict(test_dict, my_coords)
+    create_map(dist_lst, my_coords)
