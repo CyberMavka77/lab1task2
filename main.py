@@ -73,11 +73,13 @@ def create_map(dist_lst, my_coords):
     """
     """
     film_map = folium.Map(my_coords, zoom_start=3)
-    fg = folium.FeatureGroup(name = "Locations")
+    fg = folium.FeatureGroup(name = "Film locations")
+    fg_me = folium.FeatureGroup(name = "My location")
     for ele in dist_lst:
         fg.add_child(folium.Marker(location=ele[1], popup=folium.Popup(ele[2]), icon=folium.Icon(color='purple')))
-    fg.add_child(folium.Marker(location=my_coords, popup=folium.Popup("your location"), icon=folium.Icon(color='red')))
+    fg_me.add_child(folium.Marker(location=my_coords, popup=folium.Popup("your location"), icon=folium.Icon(color='red')))
     film_map.add_child(fg)
+    film_map.add_child(fg_me)
     film_map.add_child(folium.LayerControl())
     film_map.save('Films.html')
     print("The map is created!")
